@@ -12,6 +12,10 @@ GameObj.PreloadState = {
 
     //sprite sheets
     this.load.atlasJSONHash('cards', 'assets/images/cards-spritesheet.png', 'assets/images/card-spritesheet.json');
+    this.load.image('blackChip', 'assets/images/black-chip.png');
+    this.load.image('whiteChip', 'assets/images/white-chip.png');
+    this.load.image('redChip', 'assets/images/red-chip.png');
+    this.load.image('greenChip', 'assets/images/green-chip.png');
   },
   create: function() {
     this.state.start('Home');

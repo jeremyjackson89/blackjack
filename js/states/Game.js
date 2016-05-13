@@ -8,17 +8,27 @@ GameObj.GameState = {
         this.BETTING_AMOUNTS = ['5', '10', '25', '100'];
     },
     create: function() {
-        //background
-        // this.background = this.add.tileSprite(0, 0, this.game.world.width, this.game.world.height, '');
+        this.player = {
+            balance: 400,
+            bet: 0,
+            hand: []
+        };
 
+        this.dealerHand = [];
         this.cards = this.add.group();
+        
         this.setDeck();
-
-        //GUI
+        this.setChips();
+        
         this.makeGUI();
+        this.startGame();
+    },
+    startGame: function(){
+
     },
     update: function() {
 
+        this.refreshGUI();
     },
     setDeck: function(){
         this.deck = [];
@@ -30,35 +40,33 @@ GameObj.GameState = {
             }, this);
         }
     },
-    makeGUI: function() {
-        //data panel GUI
-        // var style = { font: '8px PrStart', fill: '#fff' };
-        // var levelStyle = { font: '12px PrStart', fill: '#fff' };
-        // this.dataPanel = this.add.sprite(0, 0, 'dataPanel');
-        // this.dataPanel.alpha = 0.6;
-        // this.playerFace = this.add.sprite(5, 5, 'bardockFace');
+    setChips: function(){
+        this.blackChip = this.game.add.sprite(100, 100, 'blackChip');
+        this.blackChip.anchor.setTo(0.5);
 
-        // this.healthLabel = this.add.text(50, 7, 'HEALTH:', style);
-        // this.healthStats = this.add.text(110, 7, '', style);
+        this.whiteChip = this.game.add.sprite(200, 100, 'whiteChip');
+        this.whiteChip.anchor.setTo(0.5);
+        
+        this.greenChip = this.game.add.sprite(400, 100, 'greenChip');
+        this.greenChip.anchor.setTo(0.5);
 
-        // this.energyLabel = this.add.text(50, 17, 'ENERGY:', style);
-        // this.energyStats = this.add.text(110, 17, '', style);
-
-        // this.powerLevelLabel = this.add.text(50, 37, 'POWER LEVEL', style);
-        // this.powerLevelStats = this.add.text(50, 47, '', style);
-
-        // this.defeatedLabel = this.add.text(5, 67, 'ENEMIES DEFEATED', style);
-        // this.defeatedStats = this.add.text(5, 77, '', style);
-
-        // this.levelLabel = this.add.text(this.game.world.centerX - 10, this.game.world.centerY, '', levelStyle);
-        // this.levelLabel.anchor.setTo(0.5);
-        // this.refreshStats();
+        this.redChip = this.game.add.sprite(300, 100, 'redChip');
+        this.redChip.anchor.setTo(0.5);
     },
-    refreshStats: function() {
-        this.healthStats.text = this.player.customData.health + '/' + this.player.customData.maxHealth;
-        this.energyStats.text = this.player.customData.energy + '/' + this.player.customData.maxEnergy;
-        this.powerLevelStats.text = this.formatNumber(this.player.customData.powerLevel);
-        this.defeatedStats.text = this.formatNumber(this.player.customData.enemiesDefeated);
+    makeGUI: function() {
+        var style = { font: '8px PrStart', fill: '#fff' };
+
+        this.balanceLabel = this.add.text(250, 400, 'BALANCE:', style);
+        this.balanceValue = this.add.text(250, 420, '', style);
+
+        this.betLabel = this.add.text(this.game.world.centerX, 400, 'BET:', style);
+        this.betValue = this.add.text(this.game.world.centerX, 420, '', style);
+
+        this.refreshGUI();
+    },
+    refreshGUI: function() {
+        this.balanceValue.text = "$" + this.formatNumber(this.player.balance);
+        this.betValue.text = "$" + this.formatNumber(this.player.bet);
     },
     formatNumber: function(number) {
         return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -76,7 +84,7 @@ GameObj.GameState = {
         var cardData = this.getCardData(randomIndex);
         this.deck[randomIndex] = false;
         var x = this.game.world.centerX + 15 * this.cards.children.length;
-        var y = this.game.world.centerY;
+        var y = this.game.world.centerY + 25;
         card = new GameObj.Card(this.game, x, y, cardData);
         this.cards.add(card);
     },

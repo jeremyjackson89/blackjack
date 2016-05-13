@@ -5,6 +5,7 @@ GameObj.Card = function(game, x, y, data) {
   
   //some default values
   this.anchor.setTo(0.5);
+  this.scale.setTo(2);
   this.frame = data.frame;
   this.customData = data;
 };
