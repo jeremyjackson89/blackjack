@@ -16,6 +16,12 @@ GameObj.PreloadState = {
     this.load.image('whiteChip', 'assets/images/white-chip.png');
     this.load.image('redChip', 'assets/images/red-chip.png');
     this.load.image('greenChip', 'assets/images/green-chip.png');
+    this.load.image('table', 'assets/images/table.png');
+    
+    this.load.image('dealButton', 'assets/images/dealButton.png');
+    this.load.image('clearBetButton', 'assets/images/clearBetButton.png');
+    this.load.image('hitButton', 'assets/images/hitButton.png');
+    this.load.image('standButton', 'assets/images/standButton.png');
   },
   create: function() {
     this.state.start('Home');
