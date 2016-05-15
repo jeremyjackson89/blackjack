@@ -298,18 +298,23 @@ GameObj.GameState = {
         this.alertsPanelGroup.add(this.alertsPanel);
 
         //panel content
-        style = { font: '15px PrStart', fill: '#fff' };
+        panelStyle = { font: '15px PrStart', fill: '#fff' };
         this.alertsInfoHeight = 180;
 
-        this.alertInfo = new Phaser.Text(this.game, this.game.world.centerX, this.alertsInfoHeight, '', style);
-        this.alertInfo.fixedToCamera = true;
+        this.alertInfo = new Phaser.Text(this.game, this.game.world.centerX, this.alertsInfoHeight, '', panelStyle);
+        // this.alertInfo.fixedToCamera = true;
         this.alertInfo.anchor.setTo(0.5);
         this.alertsPanelGroup.add(this.alertInfo);
 
-        this.alertInfoReason = new Phaser.Text(this.game, this.game.world.centerX, this.alertsInfoHeight + 40, '', style);
+        this.alertInfoReason = new Phaser.Text(this.game, this.game.world.centerX, this.alertsInfoHeight + 40, '', panelStyle);
         this.alertInfoReason.fixedToCamera = true;
         this.alertInfoReason.anchor.setTo(0.5);
         this.alertsPanelGroup.add(this.alertInfoReason);
+
+        this.alertContinueText = new Phaser.Text(this.game, this.game.world.centerX, this.alertsInfoHeight + 150, 'CLICK TO CONTINUE', style);
+        this.alertContinueText.fixedToCamera = true;
+        this.alertContinueText.anchor.setTo(0.5);
+        this.alertsPanelGroup.add(this.alertContinueText);
     },
 
     formatNumber: function(number) {
