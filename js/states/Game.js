@@ -14,9 +14,6 @@ GameObj.GameState = {
         this.background = this.game.add.sprite(0, 0, 'table');
         this.dealCardSound = this.add.audio('dealingCard');
         this.coinSound = this.add.audio('coins');
-        this.bassLoop = this.add.audio('bassLoop');
-
-        this.bassLoop.play('', 0, 0.25, true);
         this.dealCardSound.allowMultiple = true;
 
         this.player = {
