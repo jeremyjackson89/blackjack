@@ -89,7 +89,7 @@ GameObj.GameState = {
     },
 
     placeBet: function(chip) {
-        if (this.isAlertPanelOpen || this.alertsPanelGroup.y < this.game.height || this.player.hand.length > 0) {
+        if (this.isAlertPanelOpen || this.alertsPanelGroup.y < this.game.height || !this.dealButton.visible) {
             return;
         }
 
