@@ -1,0 +1,22 @@
+{
+    "whiteChip": {
+        "x": 50,
+        "y": 420,
+        "value": 5
+    },
+    "redChip": {
+        "x": 120,
+        "y": 460,
+        "value": 10
+    },
+    "greenChip": {
+        "x": 50,
+        "y": 500,
+        "value": 25
+    },
+    "blackChip": {
+        "x": 120,
+        "y": 540,
+        "value": 100
+    }
+}

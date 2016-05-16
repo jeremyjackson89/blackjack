@@ -12,6 +12,12 @@ GameObj.GameState = {
 
     create: function() {
         this.background = this.game.add.sprite(0, 0, 'table');
+        this.dealCardSound = this.add.audio('dealingCard');
+        this.coinSound = this.add.audio('coins');
+        this.bassLoop = this.add.audio('bassLoop');
+
+        this.bassLoop.play('', 0, 0.25, true);
+        this.dealCardSound.allowMultiple = true;
 
         this.player = {
             balance: this.STARTING_BALANCE,
@@ -70,7 +76,7 @@ GameObj.GameState = {
     },
 
     setChips: function() {
-        var chips = this.getChips();
+        var chips = JSON.parse(this.game.cache.getText('chips'));
 
         for (key in chips) {
             var chip = chips[key];
@@ -83,13 +89,16 @@ GameObj.GameState = {
     },
 
     placeBet: function(chip) {
-        if (this.isAlertPanelOpen || this.alertsPanelGroup.y < this.game.height) return;
+        if (this.isAlertPanelOpen || this.alertsPanelGroup.y < this.game.height || this.player.hand.length > 0) {
+            return;
+        }
 
         var balanceDifference = this.player.balance - chip.customData.value;
 
         if (balanceDifference >= 0) {
             this.player.bet += chip.customData.value;
             this.player.balance -= chip.customData.value;
+            this.coinSound.play();
         } else {
             var message = 'Insufficient balance';
             this.alertPlayer(message);
@@ -106,12 +115,12 @@ GameObj.GameState = {
             this.dealButton.visible = false;
             this.clearBetButton.visible = false;
 
-            this.game.time.events.add(250, this.getPlayerCard, this);
-            this.game.time.events.add(500, this.getDealerCard, this);
-            this.game.time.events.add(750, this.getPlayerCard, this);
+            this.game.time.events.add(500, this.getPlayerCard, this);
             this.game.time.events.add(1000, this.getDealerCard, this);
-            this.game.time.events.add(1250, this.displayDecisionButtons, this);
-            this.game.time.events.add(1250, this.getPlayerCardValues, this);
+            this.game.time.events.add(1500, this.getPlayerCard, this);
+            this.game.time.events.add(2000, this.getDealerCard, this);
+            this.game.time.events.add(2250, this.displayDecisionButtons, this);
+            this.game.time.events.add(2250, this.getPlayerCardValues, this);
         }
     },
 
@@ -225,31 +234,6 @@ GameObj.GameState = {
         return totalValue;
     },
 
-    getChips: function() {
-        return {
-            whiteChip: {
-                x: 50,
-                y: 420,
-                value: 5
-            },
-            redChip: {
-                x: 120,
-                y: 460,
-                value: 10
-            },
-            greenChip: {
-                x: 50,
-                y: 500,
-                value: 25
-            },
-            blackChip: {
-                x: 120,
-                y: 540,
-                value: 100
-            }
-        };
-    },
-
     makeGUI: function() {
         //Text
         var style = { font: '11px PrStart', fill: '#fff' };
@@ -327,6 +311,7 @@ GameObj.GameState = {
     },
 
     getRandomCard: function() {
+        this.dealCardSound.play();
         var randomIndex = Math.floor(Math.random() * (this.MAX_INDEX - this.MIN_INDEX + 1)) + this.MIN_INDEX;
         var card = null;
 
