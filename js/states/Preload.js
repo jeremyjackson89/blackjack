@@ -30,7 +30,6 @@ GameObj.PreloadState = {
     //sound effects
     this.load.audio('coins', ['assets/audio/coins.mp3', 'assets/audio/coins.ogg']);
     this.load.audio('dealingCard', ['assets/audio/cardDrop.mp3', 'assets/audio/cardDrop.ogg']);
-    this.load.audio('bassLoop', ['assets/audio/bassLoop.mp3', 'assets/audio/bassLoop.ogg']);
   },
   create: function() {
     this.state.start('Home');
