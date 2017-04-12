@@ -382,7 +382,6 @@ GameObj.GameState = {
 
     alertPlayer: function(title, message) {
         this.isAlertPanelOpen = true;
-
         this.alertInfoReason.text = '';
         this.alertInfo.text = title.toUpperCase();
         if (message) this.alertInfoReason.text = message.toUpperCase();
